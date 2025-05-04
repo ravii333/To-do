@@ -2,11 +2,11 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
 const addTaskButton = document.getElementById('add-task-btn');
 const todoInput = document.getElementById('todo-input');
-const todoList = document.getElementById('todo list');
+const todoList = document.getElementById('todo-list');
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [] ;
 
-tasks.forEach((task)=> renderTask(task));
+tasks.forEach(task=> renderTask(task));
 
 addTaskButton.addEventListener('click', ()=>{
     const taskText = todoInput.value.trim();
@@ -29,19 +29,19 @@ function renderTask(task){
     li.setAttribute("data-id", task.id);
 if(task.completed) li.classList.add("completed");
 li.innerHTML = `
-<span> ${task.text}<span/>
-<button>delete<button/>
+<span> ${task.text}</span>
+<button>delete</button>
 `;
 
 li.addEventListener('click', (e)=>{
     if(e.target.tagName === 'BUTTON') return;
     task.completed = !task.completed;
-    li.classList.toggle('complete');
+    li.classList.toggle('completed');
     saveTask();
 });
 li.querySelector('button').addEventListener('click', (e)=>{
     e.stopPropagation() // prevent toggle from firing
-    tasks.tasks.filter(t=> t.id !== task.id);
+    tasks=tasks.filter(t=> t.id !== task.id);
     li.remove();
     saveTask()
 })
